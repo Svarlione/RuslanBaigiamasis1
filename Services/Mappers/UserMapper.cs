@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Entities;
+using Microsoft.AspNetCore.Http;
 using RuslanAPI.Core.DTO;
 using RuslanAPI.Core.Models;
 using System.ComponentModel.DataAnnotations;
@@ -120,5 +121,6 @@ namespace RuslanAPI.Services.Mappers
                 return memoryStream.ToArray();
             }
         }
+
     }
 }

@@ -34,6 +34,7 @@ namespace RuslanAPI.DataLayer.Data
                     throw new InvalidOperationException("User ID is invalid after creation.");
 
 
+
             }
             catch (Exception ex)
             {
@@ -62,20 +63,22 @@ namespace RuslanAPI.DataLayer.Data
         /// Удаляет пользователя по его идентификатору.
         /// </summary>
         /// <param name="userId">Идентификатор пользователя для удаления.</param>
-        public void DeleteUser(long userId)//ispravit na User deletingUser
+        public void DeleteUser(long deletingUserId, long userId)
         {
-            var deletingUser = _userDbContext.Users.Find(userId);
+            var deletingUser = _userDbContext.Users.Find(deletingUserId);
+            var userToDelete = _userDbContext.Users.Find(userId);
 
-            if (deletingUser != null && deletingUser.LoginInfo.Role == "administrator")
+            if (deletingUser != null && deletingUser.LoginInfo.Role == "Administrator" && userToDelete != null)
             {
-                _userDbContext.Users.Remove(deletingUser);
+                _userDbContext.Users.Remove(userToDelete);
                 _userDbContext.SaveChanges();
             }
             else
             {
-                throw new InvalidOperationException("Unable to delete user. User not found or insufficient permissions.");
+                throw new InvalidOperationException("Unable to delete user. Admin not found or insufficient permissions.");
             }
         }
+
 
         /// <summary>
         /// Получает пользователя по его идентификатору.

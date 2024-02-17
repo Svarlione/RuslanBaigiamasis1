@@ -10,6 +10,7 @@ using RuslanAPI.Services.UserServices;
 using System.Net.Mime;
 using System.Security.Claims;
 
+
 /// <summary>
 /// Контроллер для управления пользователями в системе регистрации.
 /// </summary>
@@ -176,22 +177,22 @@ public class UserUpdateConteoller : ControllerBase
     }
 
 
-    [HttpDelete("user/delete/{userId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [Authorize(Roles = "Administrator")]
-    [EnableCors("AllowSpecificOrigins")]
-    public IActionResult DeleteUser(long deleteUserId)
-    {
-        try
-        {
-            _userService.DeleteUser(deleteUserId, userId);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { ErrorMessage = ex.Message });
-        }
-    }
+    //[HttpDelete("user/delete")]
+    //[ProducesResponseType(StatusCodes.Status200OK)]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[Authorize(Roles = "Administrator")]
+    //[EnableCors("AllowSpecificOrigins")]
+    //public IActionResult DeleteUser([FromBody] DeleteUserRequest request)
+    //{
+    //    try
+    //    {
+    //        _userService.DeleteUser(request.DeletingUserId, request.UserId);
+    //        return Ok();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return BadRequest(new { ErrorMessage = ex.Message });
+    //    }
+    //}
 
 }

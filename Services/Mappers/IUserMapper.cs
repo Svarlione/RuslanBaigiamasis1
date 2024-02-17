@@ -10,5 +10,7 @@ namespace RuslanAPI.Services.Mappers
         UserAdress MapToUserAdressEntity(AdressDto addressDto);
         User MapToUserEntity(CreateUserDto createUserDto);
         User MapToUserEntity(UpdateUserDto updateUserDto);
+
+
     }
 }

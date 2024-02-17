@@ -36,11 +36,11 @@ namespace RuslanAPI.Services.UserServices
             _dbRepository.UpdateUser(user);
         }
 
-        public void DeleteUser(long userId)
-        {
-            if ()
-                _dbRepository.DeleteUser(userId);
-        }
+        //public void DeleteUser(long deleteUserId, long userId)
+        //{
+        //    if ()
+        //        _dbRepository.DeleteUser(deleteUserId);
+        //}
 
         public User GetUserByUserId(long userId)
         {
