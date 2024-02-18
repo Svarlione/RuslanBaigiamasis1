@@ -1,4 +1,5 @@
-﻿using RuslanAPI.Core.DTO;
+﻿using Microsoft.AspNetCore.Http;
+using RuslanAPI.Core.DTO;
 using RuslanAPI.Core.Models;
 using RuslanAPI.DataLayer.Data;
 using RuslanAPI.Services.Mappers;
@@ -102,17 +103,41 @@ namespace RuslanAPI.Services.UserServices
             }
         }
 
-        public void UpdateImage(ImageUpdateDto imageUpdateDto, long userid)
+        public long UpdateImage(ImageUpdateDto imageUpdateDto, long userid)
         {
-            Image image = _userMapper.MapToImageEntity(imageUpdateDto);
-            if (image.Id != 0)
+            if (userid != 0)
             {
+                var userImageFromDb = _dbRepository.GetUserImage(userid);
+                if (userImageFromDb == null)
+                    throw new InvalidOperationException("exception.");
+
+                var image = new Image()
+                {
+                    Description = imageUpdateDto.Description,
+                    Name = imageUpdateDto.Name,
+                    ImageBytes = imageUpdateDto.Image != null ?
+                                 GetImageBytes(imageUpdateDto.Image) : null,
+                    Id = userImageFromDb.Id,
+                    UserId = userid
+                };
+
                 _dbRepository.UpdateImage(image);
+                return userImageFromDb.Id;
             }
             else
             {
                 throw new InvalidOperationException("Cannot update image with zero ID.");
             }
         }
+
+        private byte[] GetImageBytes(IFormFile file)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
+
     }
 }

@@ -10,7 +10,7 @@ namespace RuslanAPI.Services.UserServices
         void CreateUserAddress(UserAdress userAddress, long userid);
         //void DeleteUser(long deletingUserId, long userId);
         User GetUserByUserId(long userId);
-        void UpdateImage(ImageUpdateDto imageUpdateDto, long userid);
+        long UpdateImage(ImageUpdateDto imageUpdateDto, long userid);
         void UpdateUser(UpdateUserDto updateUserDto, long userId);
         long UpdateUserAddress(AdressDto userAddressDto, long userid);
     }

@@ -112,10 +112,10 @@ public class UserUpdateConteoller : ControllerBase
         try
         {
 
-            // Вызываем метод для обновления адреса пользователя
+
             long updatedAddressId = _userService.UpdateUserAddress(userAddressDto, userId);
 
-            // Возвращаем Id обновленного адреса
+
             return Ok(new { UpdatedAddressId = updatedAddressId });
         }
         catch (Exception ex)
@@ -142,14 +142,17 @@ public class UserUpdateConteoller : ControllerBase
     }
 
 
-    [HttpPut("image/update/{id}")]
+    [HttpPut("imageUpdate")]
     [EnableCors("AllowSpecificOrigins")]
-    public IActionResult UpdateImage(int id, [FromForm] ImageUpdateDto imageUpdateDto)
+    public IActionResult UpdateImage([FromForm] ImageUpdateDto imageUpdateDto)
     {
+
         try
         {
-            _userService.UpdateImage(imageUpdateDto, id);
-            return Ok();
+            long updateImageId = _userService.UpdateImage(imageUpdateDto, userId);
+
+
+            return Ok(new { UpdateImageId = updateImageId });
         }
         catch (Exception ex)
         {

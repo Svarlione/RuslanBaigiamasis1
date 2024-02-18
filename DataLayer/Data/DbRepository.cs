@@ -1,4 +1,5 @@
-﻿using RuslanAPI.Core.DTO;
+﻿using Microsoft.EntityFrameworkCore;
+using RuslanAPI.Core.DTO;
 using RuslanAPI.Core.Models;
 using Image = RuslanAPI.Core.Models.Image;
 
@@ -153,13 +154,19 @@ namespace RuslanAPI.DataLayer.Data
         /// Обновляет информацию об изображении.
         /// </summary>
         /// <param name="image">Обновленные данные изображения.</param>
-        public void UpdateImage(Image image)
+        public long UpdateImage(Image image)
         {
             if (image == null)
                 throw new ArgumentNullException(nameof(image), "Image cannot be null.");
 
             _userDbContext.Image.Update(image);
             _userDbContext.SaveChanges();
+            return image.Id;
+        }
+
+        public Image GetUserImage(long userId)
+        {
+            return _userDbContext.Image.AsNoTracking().FirstOrDefault(i => i.UserId == userId);
         }
     }
 }

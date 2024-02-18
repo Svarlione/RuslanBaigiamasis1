@@ -11,9 +11,9 @@ namespace RuslanAPI.DataLayer.Data
         UserAdress GetUserAddress(long userId);
         User GetUserByUserId(long userId);
         long UpdateAdress(UserAdress userAdress);
-        void UpdateImage(Image image);
+        long UpdateImage(Image image);
         void UpdateUser(User user);
 
-
+        Image GetUserImage(long userId);
     }
 }
