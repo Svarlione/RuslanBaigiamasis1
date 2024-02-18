@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\DeleteUser.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DTO\" />
   </ItemGroup>
 

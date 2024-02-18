@@ -21,6 +21,7 @@ public class UserUpdateConteoller : ControllerBase
     private readonly IUserService _userService;
     private readonly IUserMapper _userMapper;
     private readonly IAuthService _authService;
+
     private readonly long userId;
     public UserUpdateConteoller(IUserService userService, IUserMapper userMapper, IAuthService authService, IHttpContextAccessor accessor)
 

@@ -14,5 +14,6 @@ namespace RuslanAPI.DataLayer.Data
         void UpdateImage(Image image);
         void UpdateUser(User user);
 
+
     }
 }

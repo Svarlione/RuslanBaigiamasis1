@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using RuslanAPI.Core.DTO;
 using RuslanAPI.Core.Models;
 using System.ComponentModel.DataAnnotations;
@@ -88,7 +87,8 @@ namespace RuslanAPI.Services.Mappers
             {
                 Name = imageDto.Name,
                 Description = imageDto.Description,
-                ImageBytes = ConvertToBytes(imageDto.Image)
+                ImageBytes = ConvertToBytes(imageDto.Image),
+
             };
         }
 
@@ -110,7 +110,8 @@ namespace RuslanAPI.Services.Mappers
             {
                 Name = imageUpdateDto.Name,
                 Description = imageUpdateDto.Description,
-                ImageBytes = imageBytes
+                ImageBytes = imageBytes,
+
             };
         }
         private byte[] ConvertToBytes(IFormFile file)

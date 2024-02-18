@@ -87,16 +87,18 @@ namespace RuslanAPI.Services.UserServices
             }
         }
 
-        public void CreateImage(ImageDto imageDto, long userid)
+        public void CreateImage(ImageDto imageDto, long userId)
         {
-            Image image = _userMapper.MapToImageEntity(imageDto);
-            if (image.Id == 0)
+            try
             {
+                Image image = _userMapper.MapToImageEntity(imageDto);
+                image.UserId = userId;
                 _dbRepository.CreatImage(image);
             }
-            else
+            catch (Exception ex)
             {
-                throw new InvalidOperationException("Cannot create image with an existing ID.");
+                // Здесь можно добавить логирование ошибки или обработку исключения
+                throw new InvalidOperationException("An error occurred while creating the image.", ex);
             }
         }
 

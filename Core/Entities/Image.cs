@@ -14,7 +14,9 @@ namespace RuslanAPI.Core.Models
 
         public string Description { get; set; } = null!;
 
-        public int Size { get; set; }
+        [NotMapped] // Помечаем свойство как не отображаемое в базе данных
+        public int Size => ImageBytes?.Length ?? 0; // Автоматически вычисляемый размер из массива байт
+
 
         [ForeignKey(nameof(User))]
         public long UserId { get; set; }
