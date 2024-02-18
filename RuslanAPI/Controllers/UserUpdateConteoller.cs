@@ -32,26 +32,7 @@ public class UserUpdateConteoller : ControllerBase
         userId = long.Parse(accessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
     }
 
-    ///// <summary>
-    ///// Создает нового пользователя.
-    ///// </summary>
-    ///// <param name="createUserDto">Данные пользователя для создания.</param>
-    ///// <returns>HTTP-статус 200 с идентификатором созданного пользователя или HTTP-статус 400 в случае ошибки.</returns>
-    //[HttpPost("user/Create")]
-    //[ProducesResponseType(StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //public IActionResult CreateUser([FromBody] CreateUserDto createUserDto)
-    //{
-    //    try
-    //    {
-    //        _userService.CreateUser(createUserDto);
-    //        return Ok();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return BadRequest(new { ErrorMessage = ex.Message });
-    //    }
-    //}
+
 
     /// <summary>
     /// Обновляет информацию о пользователе.

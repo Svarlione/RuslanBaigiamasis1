@@ -14,6 +14,7 @@ namespace RuslanAPI.DataLayer.Data
         long UpdateImage(Image image);
         void UpdateUser(User user);
 
+        void DetachEntity(object entity);
         Image GetUserImage(long userId);
     }
 }

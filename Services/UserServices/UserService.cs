@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using RuslanAPI.Core.DTO;
 using RuslanAPI.Core.Models;
 using RuslanAPI.DataLayer.Data;
@@ -36,18 +37,32 @@ namespace RuslanAPI.Services.UserServices
 
         public void UpdateUser(UpdateUserDto updateUserDto, long userId)
         {
-            var user = _userMapper.MapToUserEntity(updateUserDto); // user s zamapennymi dannymi
-            var userFromDb = _dbRepository.GetUserByUserId(userId); // user iz bazy
-            // primer: 
-            //user.PersonalIndefication = userFromDb.PersonalIndefication;
-            // i tak nado opisat' vse dannye kotorye ne dolzhny obnovit'sja
+            var user = _userMapper.MapToUserEntity(updateUserDto); // User с замапленными данными
+            var userFromDb = _dbRepository.GetUserByUserId(userId); // User из базы
+
+            // Копирование значений свойств из userFromDb в user
+            user.PersonalIndefication = userFromDb.PersonalIndefication;
+            user.Id = userFromDb.Id;
+            user.Adress = userFromDb.Adress;
+            user.Image = userFromDb.Image;
+
+            // Создание нового объекта LoginInfo с установкой значений свойств
             user.LoginInfo = new LoginInfo
             {
+                Id = userFromDb.LoginInfo.Id,
+                Role = userFromDb.LoginInfo.Role,
+                PasswordSalt = userFromDb.LoginInfo.PasswordSalt,
+                UserName = userFromDb.LoginInfo.UserName,
                 Password = _authService.HashPassword(updateUserDto.Password)
             };
 
+            // Отсоединение сущности userFromDb от контекста данных
+            _dbRepository.DetachEntity(userFromDb);
+
+            // Обновление сущности user в базе данных
             _dbRepository.UpdateUser(user);
         }
+
 
         public void DeleteUser(long userIdToDelete, long userId)
         {

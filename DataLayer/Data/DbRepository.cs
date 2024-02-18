@@ -15,10 +15,10 @@ namespace RuslanAPI.DataLayer.Data
         }
 
         /// <summary>
-        /// Создает нового пользователя.
+        /// Kuriam nauja Useri.
         /// </summary>
-        /// <param name="user">Данные пользователя для создания.</param>
-        /// <returns>Идентификатор созданного пользователя.</returns>
+        /// <param name="user">.</param>
+
         public long Create(User user)
         {
             try
@@ -34,7 +34,6 @@ namespace RuslanAPI.DataLayer.Data
             }
             catch (Exception ex)
             {
-                // Здесь можно добавить логирование ошибки или обработку исключения
                 throw new InvalidOperationException("An error occurred while saving the entity changes.", ex);
             }
             return user.Id;
@@ -43,9 +42,9 @@ namespace RuslanAPI.DataLayer.Data
 
 
         /// <summary>
-        /// Обновляет информацию о пользователе.
+        /// Atnaujinam useri.
         /// </summary>
-        /// <param name="user">Обновленные данные пользователя.</param>
+        /// <param name="user">.</param>
         public void UpdateUser(User user)
         {
             if (user == null)
@@ -56,9 +55,9 @@ namespace RuslanAPI.DataLayer.Data
         }
 
         /// <summary>
-        /// Удаляет пользователя по его идентификатору.
+        /// Trina Useri pagal Id.
         /// </summary>
-        /// <param name="userIdToDelete">Идентификатор пользователя для удаления.</param>
+        /// <param name="userIdToDelete">Trinamojo Userio Id.</param>
         public void DeleteUser(User userToDelete)
         {
             _userDbContext.Users.Remove(userToDelete);
@@ -67,10 +66,10 @@ namespace RuslanAPI.DataLayer.Data
 
 
         /// <summary>
-        /// Получает пользователя по его идентификатору.
+        /// Gaunam visa info Userio pagal Id.
         /// </summary>
-        /// <param name="userId">Идентификатор пользователя.</param>
-        /// <returns>Найденный пользователь.</returns>
+        /// <param name="userId"></param>
+        /// <returns>Grazina info apie Useri</returns>
         public User GetUserByUserId(long userId)
         {
             return _userDbContext.Users
@@ -86,9 +85,9 @@ namespace RuslanAPI.DataLayer.Data
         }
 
         /// <summary>
-        /// Создает новый адрес пользователя.
+        /// Sukuria nauja adresa.
         /// </summary>
-        /// <param name="userAdress">Данные адреса для создания.</param>
+        /// <param name="userAdress">.</param>
         public void CreateAdress(UserAdress userAdress)
         {
             if (userAdress == null)
@@ -99,27 +98,21 @@ namespace RuslanAPI.DataLayer.Data
         }
 
         /// <summary>
-        /// Обновляет информацию о пользовательском адресе.
+        /// Atnaujina Usrio adresa
         /// </summary>
-        /// <param name="userAdress">Обновленные данные пользовательского адреса.</param>
+        /// <param name="userAdress">atnaujina duomenis.</param>
         public long UpdateAdress(UserAdress userAdress)
         {
-            // Получаем существующий адрес по userId
             UserAdress existingAddress = _userDbContext.UserAdress.FirstOrDefault(x => x.UserId == userAdress.UserId);
             if (existingAddress != null)
             {
-                // Обновляем значения свойств в существующем адресе
                 _userDbContext.Entry(existingAddress).CurrentValues.SetValues(userAdress);
-
-                // Сохраняем изменения в базе данных
                 _userDbContext.SaveChanges();
 
-                // Возвращаем Id обновленного адреса
                 return existingAddress.Id;
             }
             else
             {
-                // Обработка ситуации, когда адрес не найден
                 throw new InvalidOperationException("User address not found for the given userId.");
             }
         }
@@ -127,9 +120,9 @@ namespace RuslanAPI.DataLayer.Data
 
 
         /// <summary>
-        /// Создает новое изображение.
+        /// Sukuria Image.
         /// </summary>
-        /// <param name="image">Данные изображения для создания.</param>
+        /// <param name="image">.</param>
         public void CreatImage(Image image)
         {
             if (image == null)
@@ -140,9 +133,9 @@ namespace RuslanAPI.DataLayer.Data
         }
 
         /// <summary>
-        /// Обновляет информацию об изображении.
+        /// atnaujina Image.
         /// </summary>
-        /// <param name="image">Обновленные данные изображения.</param>
+        /// <param name="image">Atnaujina duomenis.</param>
         public long UpdateImage(Image image)
         {
             if (image == null)
@@ -157,5 +150,16 @@ namespace RuslanAPI.DataLayer.Data
         {
             return _userDbContext.Image.AsNoTracking().FirstOrDefault(i => i.UserId == userId);
         }
+
+        public void DetachEntity(object entity)
+        {
+            var entry = _userDbContext.Entry(entity);
+            if (entry.State != EntityState.Detached)
+            {
+                entry.State = EntityState.Detached;
+            }
+        }
+
+
     }
 }

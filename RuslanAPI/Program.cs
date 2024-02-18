@@ -27,16 +27,7 @@ namespace RuslanAPI
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             builder.Services.AddHttpContextAccessor();
-            // uzregistravimo servisa i DI arba IoC (dipendency injection)
-            //builder.Services.AddScoped<ITodoRepository, TodoRepository>();
-            //builder.Services.AddScoped<IToDoEmailService, ToDoEmailService>();
-            //builder.Services.AddSingleton<IValueRespository, ValueSerevices>();
-            //builder.Services.AddScoped<IBookRepository, BookRepository>();
-            //builder.Services.AddTransient<IValidatorBookService, ValidatorBookService>();
-            //builder.Services.AddTransient<IBookMapper, BookMapper>();
-            // builder.Services.AddScoped<IVartotojasRepository, VartotojasRepository>();
-            //builder.Services.AddTransient<IVartotojasServices, VartotojasServices>();
-            //builder.Services.AddScoped<IJWtService, JwtService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -95,7 +86,7 @@ namespace RuslanAPI
                 options.AddPolicy("AllowSpecificOrigins",
                     builder =>
                     {
-                        builder.WithOrigins("http://127.0.0.1:5500")
+                        builder.WithOrigins("https://localhost:7236")
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     });
