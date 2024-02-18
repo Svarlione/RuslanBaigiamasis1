@@ -88,7 +88,10 @@ namespace RuslanAPI.DataLayer.Data
         /// <returns>Найденный пользователь.</returns>
         public User GetUserByUserId(long userId)
         {
-            return _userDbContext.Users.FirstOrDefault(x => x.Id == userId);
+            return _userDbContext.Users
+       .Include(u => u.Image)
+       .Include(u => u.Adress)
+       .FirstOrDefault(u => u.Id == userId);
         }
 
         public UserAdress GetUserAddress(long userId)
