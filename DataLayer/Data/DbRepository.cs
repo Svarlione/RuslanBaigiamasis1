@@ -24,18 +24,13 @@ namespace RuslanAPI.DataLayer.Data
             try
             {
                 if (user == null)
-
                     throw new ArgumentNullException(nameof(user), "User cannot be null.");
 
                 _userDbContext.Users.Add(user);
                 _userDbContext.SaveChanges();
 
                 if (user.Id <= 0)
-
                     throw new InvalidOperationException("User ID is invalid after creation.");
-
-
-
             }
             catch (Exception ex)
             {
@@ -63,21 +58,11 @@ namespace RuslanAPI.DataLayer.Data
         /// <summary>
         /// Удаляет пользователя по его идентификатору.
         /// </summary>
-        /// <param name="userId">Идентификатор пользователя для удаления.</param>
-        public void DeleteUser(long deletingUserId, long userId)
+        /// <param name="userIdToDelete">Идентификатор пользователя для удаления.</param>
+        public void DeleteUser(User userToDelete)
         {
-            var deletingUser = _userDbContext.Users.Find(deletingUserId);
-            var userToDelete = _userDbContext.Users.Find(userId);
-
-            if (deletingUser != null && deletingUser.LoginInfo.Role == "Administrator" && userToDelete != null)
-            {
-                _userDbContext.Users.Remove(userToDelete);
-                _userDbContext.SaveChanges();
-            }
-            else
-            {
-                throw new InvalidOperationException("Unable to delete user. Admin not found or insufficient permissions.");
-            }
+            _userDbContext.Users.Remove(userToDelete);
+            _userDbContext.SaveChanges();
         }
 
 
@@ -89,9 +74,10 @@ namespace RuslanAPI.DataLayer.Data
         public User GetUserByUserId(long userId)
         {
             return _userDbContext.Users
-       .Include(u => u.Image)
-       .Include(u => u.Adress)
-       .FirstOrDefault(u => u.Id == userId);
+                                       .Include(u => u.Image)
+                                       .Include(u => u.Adress)
+                                       .Include(u => u.LoginInfo)
+                                       .FirstOrDefault(u => u.Id == userId);
         }
 
         public UserAdress GetUserAddress(long userId)

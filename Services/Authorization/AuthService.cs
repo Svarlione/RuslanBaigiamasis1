@@ -109,7 +109,7 @@ namespace RuslanAPI.Services.Authorization
         }
 
 
-        private byte[] HashPassword(string password)
+        public byte[] HashPassword(string password)
         {
             string hashedPassword = _passwordHasher.HashPassword(null, password);
             return Encoding.UTF8.GetBytes(hashedPassword);

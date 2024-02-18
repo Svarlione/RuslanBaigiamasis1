@@ -7,7 +7,7 @@ namespace RuslanAPI.DataLayer.Data
         long Create(User user);
         void CreateAdress(UserAdress userAdress);
         void CreatImage(Image image);
-        void DeleteUser(long deleteUserId, long userId);
+        void DeleteUser(User userToDelete);
         UserAdress GetUserAddress(long userId);
         User GetUserByUserId(long userId);
         long UpdateAdress(UserAdress userAdress);

@@ -5,12 +5,9 @@ namespace RuslanAPI.Services.Mappers
 {
     public interface IUserMapper
     {
-        Image MapToImageEntity(ImageDto imageDto);
-        Image MapToImageEntity(ImageUpdateDto imageUpdateDto);
-        UserAdress MapToUserAdressEntity(AdressDto addressDto);
+        Image MapToImageEntity(ImageDto imageDto, long userId);
+        UserAdress MapToUserAdressEntity(AdressDto addressDto, long userId);
         User MapToUserEntity(CreateUserDto createUserDto);
         User MapToUserEntity(UpdateUserDto updateUserDto);
-
-
     }
 }

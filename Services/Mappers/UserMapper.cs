@@ -23,9 +23,6 @@ namespace RuslanAPI.Services.Mappers
                     PasswordSalt = new byte[] { },
                     Role = "user"
                 },
-
-
-
             };
         }
 
@@ -39,18 +36,11 @@ namespace RuslanAPI.Services.Mappers
             return new User()
             {
                 Email = updateUserDto.Email,
-                PhoneNumber = updateUserDto.PhoneNumber,
-                LoginInfo = new LoginInfo()
-                {
-                    Password = Encoding.UTF8.GetBytes(updateUserDto.Password),
-                    //  Encoding.UTF8.GetBytes();
-                },
-
-
+                PhoneNumber = updateUserDto.PhoneNumber
             };
         }
 
-        public UserAdress MapToUserAdressEntity(AdressDto addressDto)
+        public UserAdress MapToUserAdressEntity(AdressDto addressDto, long userId)
         {
             if (addressDto == null)
             {
@@ -72,11 +62,12 @@ namespace RuslanAPI.Services.Mappers
                 Road = addressDto.Road,
                 HomeNumer = addressDto.HomeNumer,
                 FlatNumber = addressDto.FlatNumber,
-                Type = addressDto.Type
+                Type = addressDto.Type,
+                UserId = userId
             };
         }
 
-        public Image MapToImageEntity(ImageDto imageDto)
+        public Image MapToImageEntity(ImageDto imageDto, long userId)
         {
             if (imageDto == null)
             {
@@ -88,32 +79,26 @@ namespace RuslanAPI.Services.Mappers
                 Name = imageDto.Name,
                 Description = imageDto.Description,
                 ImageBytes = ConvertToBytes(imageDto.Image),
-
+                UserId = userId
             };
         }
 
-        public Image MapToImageEntity(ImageUpdateDto imageUpdateDto)
-        {
-            if (imageUpdateDto == null || imageUpdateDto.Image == null)
-            {
-                return null;
-            }
+        //public Image MapToImageEntity(ImageUpdateDto imageUpdateDto, long userId)
+        //{
+        //    if (imageUpdateDto == null || imageUpdateDto.Image == null)
+        //    {
+        //        return null;
+        //    }
 
-            byte[] imageBytes;
-            using (var stream = new MemoryStream())
-            {
-                imageUpdateDto.Image.CopyTo(stream);
-                imageBytes = stream.ToArray();
-            }
+        //    return new Image()
+        //    {
+        //        Name = imageUpdateDto.Name,
+        //        Description = imageUpdateDto.Description,
+        //        ImageBytes = ConvertToBytes(imageUpdateDto.Image),
+        //        UserId = userId
 
-            return new Image()
-            {
-                Name = imageUpdateDto.Name,
-                Description = imageUpdateDto.Description,
-                ImageBytes = imageBytes,
-
-            };
-        }
+        //    };
+        //}
         private byte[] ConvertToBytes(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())

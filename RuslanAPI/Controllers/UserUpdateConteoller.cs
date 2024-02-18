@@ -72,7 +72,7 @@ public class UserUpdateConteoller : ControllerBase
         try
         {
             _userService.UpdateUser(updateUserDto, userId);
-            return Ok();
+            return Ok(userId);
         }
         catch (Exception ex)
         {
@@ -90,9 +90,8 @@ public class UserUpdateConteoller : ControllerBase
     {
         try
         {
-            UserAdress userAddress = _userMapper.MapToUserAdressEntity(userAddressDto);
-            _userService.CreateUserAddress(userAddress, userId);
-            return Ok(userId);
+            _userService.CreateUserAddress(userAddressDto, userId);
+            return Ok();// esli uspeesh vozvrawat' user address id
         }
         catch (Exception ex)
         {
@@ -111,11 +110,7 @@ public class UserUpdateConteoller : ControllerBase
     {
         try
         {
-
-
             long updatedAddressId = _userService.UpdateUserAddress(userAddressDto, userId);
-
-
             return Ok(new { UpdatedAddressId = updatedAddressId });
         }
         catch (Exception ex)
@@ -144,14 +139,11 @@ public class UserUpdateConteoller : ControllerBase
 
     [HttpPut("imageUpdate")]
     [EnableCors("AllowSpecificOrigins")]
-    public IActionResult UpdateImage([FromForm] ImageUpdateDto imageUpdateDto)
+    public IActionResult UpdateImage([FromForm] ImageDto imageDto)
     {
-
         try
         {
-            long updateImageId = _userService.UpdateImage(imageUpdateDto, userId);
-
-
+            long updateImageId = _userService.UpdateImage(imageDto, userId);
             return Ok(new { UpdateImageId = updateImageId });
         }
         catch (Exception ex)
@@ -181,22 +173,22 @@ public class UserUpdateConteoller : ControllerBase
     }
 
 
-    //[HttpDelete("user/delete")]
-    //[ProducesResponseType(StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //[Authorize(Roles = "Administrator")]
-    //[EnableCors("AllowSpecificOrigins")]
-    //public IActionResult DeleteUser([FromBody] DeleteUserRequest request)
-    //{
-    //    try
-    //    {
-    //        _userService.DeleteUser(request.DeletingUserId, request.UserId);
-    //        return Ok();
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        return BadRequest(new { ErrorMessage = ex.Message });
-    //    }
-    //}
+    [HttpDelete("userDelete/{userIdToDelete}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    // [Authorize(Roles = "Administrator")]
+    [EnableCors("AllowSpecificOrigins")]
+    public IActionResult DeleteUser(long userIdToDelete)
+    {
+        try
+        {
+            _userService.DeleteUser(userIdToDelete, userId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { ErrorMessage = ex.Message });
+        }
+    }
 
 }
