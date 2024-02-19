@@ -11,9 +11,7 @@ using System.Net.Mime;
 using System.Security.Claims;
 
 
-/// <summary>
-/// Контроллер для управления пользователями в системе регистрации.
-/// </summary>
+
 [Route("api/[controller]")]
 [ApiController]
 public class UserUpdateConteoller : ControllerBase
@@ -34,12 +32,6 @@ public class UserUpdateConteoller : ControllerBase
 
 
 
-    /// <summary>
-    /// Обновляет информацию о пользователе.
-    /// </summary>
-    /// <param name="updateUserDto">Обновленные данные пользователя.</param>
-    /// <returns>HTTP-статус 200 в случае успешного обновления или HTTP-статус 400 в случае ошибки.</returns>
-    /// 
 
 
     [HttpPut("userUpdate")]
@@ -67,12 +59,12 @@ public class UserUpdateConteoller : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [EnableCors("AllowSpecificOrigins")]
-    public IActionResult CreateUserAddress([FromBody] AdressDto userAddressDto)//rabotaet
+    public IActionResult CreateUserAddress([FromBody] AdressDto userAddressDto)
     {
         try
         {
             _userService.CreateUserAddress(userAddressDto, userId);
-            return Ok();// esli uspeesh vozvrawat' user address id
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -140,7 +132,7 @@ public class UserUpdateConteoller : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [EnableCors("AllowSpecificOrigins")]
-    public IActionResult GetUserByUserId()//rabotaet
+    public IActionResult GetUserByUserId()
     {
         try
         {
@@ -157,7 +149,6 @@ public class UserUpdateConteoller : ControllerBase
     [HttpDelete("userDelete/{userIdToDelete}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    // [Authorize(Roles = "Administrator")]
     [EnableCors("AllowSpecificOrigins")]
     public IActionResult DeleteUser(long userIdToDelete)
     {

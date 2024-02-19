@@ -49,12 +49,12 @@ namespace RuslanAPI.Services.Mappers
                 return null;
             }
 
-            // Проверка обязательных полей
+
             var context = new ValidationContext(addressDto, serviceProvider: null, items: null);
             var results = new List<ValidationResult>();
             if (!Validator.TryValidateObject(addressDto, context, results, validateAllProperties: true))
             {
-                // Если есть ошибки валидации, вы можете обработать их здесь или выбросить исключение
+
                 throw new ArgumentException("Validation failed for AdressDto", nameof(addressDto));
             }
 
@@ -85,22 +85,7 @@ namespace RuslanAPI.Services.Mappers
             };
         }
 
-        //public Image MapToImageEntity(ImageUpdateDto imageUpdateDto, long userId)
-        //{
-        //    if (imageUpdateDto == null || imageUpdateDto.Image == null)
-        //    {
-        //        return null;
-        //    }
 
-        //    return new Image()
-        //    {
-        //        Name = imageUpdateDto.Name,
-        //        Description = imageUpdateDto.Description,
-        //        ImageBytes = ConvertToBytes(imageUpdateDto.Image),
-        //        UserId = userId
-
-        //    };
-        //}
         private byte[] ConvertToBytes(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())

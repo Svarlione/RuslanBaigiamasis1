@@ -31,16 +31,16 @@ namespace RuslanAPI.Services.UserServices
             catch (Exception ex)
             {
 
-                throw new InvalidOperationException("An error occurred while creating the user.", ex);
+                throw new InvalidOperationException("Something goes wrong while creating the user.", ex);
             }
         }
 
         public void UpdateUser(UpdateUserDto updateUserDto, long userId)
         {
-            var user = _userMapper.MapToUserEntity(updateUserDto); // User с замапленными данными
-            var userFromDb = _dbRepository.GetUserByUserId(userId); // User из базы
+            var user = _userMapper.MapToUserEntity(updateUserDto); // useris is mapperio
+            var userFromDb = _dbRepository.GetUserByUserId(userId); // Useris is domenu bazes
 
-
+            //uploudinam senaja info, kad ne atnaujinti visko ir ne mestu klaidos is entities
             user.PersonalIndefication = userFromDb.PersonalIndefication;
             user.Id = userFromDb.Id;
             user.Adress = userFromDb.Adress;
@@ -56,7 +56,7 @@ namespace RuslanAPI.Services.UserServices
                 Password = _authService.HashPassword(updateUserDto.Password)
             };
 
-
+            // atjungiam objekta nuo kito objekto kad galetu atsinaujinti
             _dbRepository.DetachEntity(userFromDb);
 
 
@@ -72,7 +72,7 @@ namespace RuslanAPI.Services.UserServices
             if (deletingUser != null && userToDelete != null && deletingUser.LoginInfo.Role == "Administrator")
                 _dbRepository.DeleteUser(userToDelete);
             else
-                throw new InvalidOperationException("");// change exption
+                throw new InvalidOperationException("Cant delete user, you dont have promision or User dont exist.");
         }
 
         public User GetUserByUserId(long userId)
@@ -89,7 +89,7 @@ namespace RuslanAPI.Services.UserServices
             }
             catch (Exception)
             {
-                throw new InvalidOperationException("");// change exption
+                throw new InvalidOperationException("error");// change exption
             }
         }
 
@@ -108,7 +108,7 @@ namespace RuslanAPI.Services.UserServices
             }
             catch (Exception)
             {
-                throw new InvalidOperationException("");// change exption
+                throw new InvalidOperationException("No address to update");
             }
         }
 
@@ -121,7 +121,7 @@ namespace RuslanAPI.Services.UserServices
             }
             catch (Exception ex)
             {
-                // Здесь можно добавить логирование ошибки или обработку исключения
+
                 throw new InvalidOperationException("An error occurred while creating the image.", ex);
             }
         }

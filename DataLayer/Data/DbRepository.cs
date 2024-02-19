@@ -48,7 +48,7 @@ namespace RuslanAPI.DataLayer.Data
         public void UpdateUser(User user)
         {
             if (user == null)
-                throw new ArgumentNullException(nameof(user), "User cannot be null.");
+                throw new ArgumentNullException(nameof(user), "Nothing to update.");
 
             _userDbContext.Users.Update(user);
             _userDbContext.SaveChanges();
@@ -126,7 +126,7 @@ namespace RuslanAPI.DataLayer.Data
         public void CreatImage(Image image)
         {
             if (image == null)
-                throw new ArgumentNullException(nameof(image), "Image cannot be null.");
+                throw new ArgumentNullException(nameof(image), "No image to create.");
 
             _userDbContext.Image.Add(image);
             _userDbContext.SaveChanges();
@@ -139,7 +139,7 @@ namespace RuslanAPI.DataLayer.Data
         public long UpdateImage(Image image)
         {
             if (image == null)
-                throw new ArgumentNullException(nameof(image), "Image cannot be null.");
+                throw new ArgumentNullException(nameof(image), "Nothing to update.");
 
             _userDbContext.Image.Update(image);
             _userDbContext.SaveChanges();
