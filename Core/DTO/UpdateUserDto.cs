@@ -13,5 +13,8 @@ namespace RuslanAPI.Core.DTO
         [MinLength(6, ErrorMessage = "Slaptažodis turi turėti bent 6 simbolius")]
         [RegularExpression(".*[A-Z].*", ErrorMessage = "Slaptažodyje turi būti bent viena didžioji raidė")]
         public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LaststName { get; set; }
+
     }
 }

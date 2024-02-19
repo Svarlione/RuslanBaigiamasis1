@@ -36,7 +36,9 @@ namespace RuslanAPI.Services.Mappers
             return new User()
             {
                 Email = updateUserDto.Email,
-                PhoneNumber = updateUserDto.PhoneNumber
+                PhoneNumber = updateUserDto.PhoneNumber,
+                FirstName = updateUserDto.FirstName,
+                LaststName = updateUserDto.LaststName
             };
         }
 

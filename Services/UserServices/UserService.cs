@@ -30,7 +30,7 @@ namespace RuslanAPI.Services.UserServices
             }
             catch (Exception ex)
             {
-                // Здесь можно добавить логирование ошибки или обработку исключения
+
                 throw new InvalidOperationException("An error occurred while creating the user.", ex);
             }
         }
@@ -40,13 +40,13 @@ namespace RuslanAPI.Services.UserServices
             var user = _userMapper.MapToUserEntity(updateUserDto); // User с замапленными данными
             var userFromDb = _dbRepository.GetUserByUserId(userId); // User из базы
 
-            // Копирование значений свойств из userFromDb в user
+
             user.PersonalIndefication = userFromDb.PersonalIndefication;
             user.Id = userFromDb.Id;
             user.Adress = userFromDb.Adress;
             user.Image = userFromDb.Image;
 
-            // Создание нового объекта LoginInfo с установкой значений свойств
+
             user.LoginInfo = new LoginInfo
             {
                 Id = userFromDb.LoginInfo.Id,
@@ -56,10 +56,10 @@ namespace RuslanAPI.Services.UserServices
                 Password = _authService.HashPassword(updateUserDto.Password)
             };
 
-            // Отсоединение сущности userFromDb от контекста данных
+
             _dbRepository.DetachEntity(userFromDb);
 
-            // Обновление сущности user в базе данных
+
             _dbRepository.UpdateUser(user);
         }
 
