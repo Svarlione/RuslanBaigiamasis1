@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//using RuslanAPI.DataLayer.Data;//ne eina prijungti prie bazes
 
 
 namespace RuslanAPI.Core.Attributes

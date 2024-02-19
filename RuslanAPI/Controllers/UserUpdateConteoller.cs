@@ -27,7 +27,8 @@ public class UserUpdateConteoller : ControllerBase
         _userService = userService;
         _userMapper = userMapper;
         _authService = authService;
-        userId = long.Parse(accessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        userId = long.Parse(accessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier)!); // accessor.HttpContext?.User is NOT Authenticated!!!
+        // Authenticate 
     }
 
 

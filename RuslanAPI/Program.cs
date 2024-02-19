@@ -86,11 +86,22 @@ namespace RuslanAPI
                 options.AddPolicy("AllowSpecificOrigins",
                     builder =>
                     {
-                        builder.WithOrigins("https://localhost:7236")
-                               .AllowAnyHeader()
-                               .AllowAnyMethod();
+                        builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
                     });
             });
+
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      policy =>
+            //                      {
+            //                          policy.AllowAnyOrigin()
+            //                          .AllowAnyHeader()
+            //                          .AllowAnyMethod();
+            //                      });
+            //});
 
 
             var app = builder.Build();
